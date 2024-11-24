@@ -1,0 +1,17 @@
+[
+  {
+    "title": "My account",
+    "emoji": "🔒",
+    "slug": "user-account"
+  },
+  {
+    "title": "My orders",
+    "emoji": "📦",
+    "slug": "user-orders"
+  },
+  {
+    "title": "Favorites",
+    "emoji": "❤️",
+    "slug": "user-favorites"
+  }
+]
