@@ -1,38 +1,37 @@
 export interface IregisterFormValues {
-  name: string
-  surname: string
-  email: string
-  password: string
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
 }
 
 export interface IloginFormValues {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export interface IsingleProductFormValues {
-  size: string
+  size: string;
 }
 
 export interface IsearchInputFormValues {
-  searchPhrase: string
+  searchPhrase: string;
 }
 
 export interface Iuser {
-  name: string
-  surname: string
-  jwtToken: string
-  id: string
-  isLogged: boolean
+  name: string;
+  surname: string;
+  jwtToken: string;
+  id: string;
+  isLogged: boolean;
 }
 
 export interface IuserContext {
-  user: Iuser
-  updateUser: (newUser: Iuser) => void
-  logout: () => void
-  userFavoriteProducts: string[]
-  toggleFavoriteProduct: (productID:string) => void,
-  lastSelectedProductSLug: string
+  user: Iuser;
+  updateUser: (newUser: Iuser) => void;
+  logout: () => void;
+  userFavoriteProducts: string[];
+  toggleFavoriteProduct: (productID: string) => void;
 }
 
 export interface Icategory {
@@ -44,34 +43,69 @@ export interface Icategory {
 }
 
 export interface Iproduct {
-  id: string
-  category: string
-  currency: string
-  approved: boolean
-  title: string
-  inStock: boolean
-  live: boolean
-  featured: boolean
-  images: [object]
-  type: string
-  brand: string
-  color: string
-  description: string
-  price: [number]
-  negotiable: boolean
-  slug: string
-  isAddedToFavs: boolean
-  averageRating: number
-  totalReviews: number
-  percentageDiscount: number
-  attributes: object
+  id: string;
+  category: string;
+  currency: string;
+  approved: boolean;
+  title: string;
+  inStock: boolean;
+  live: boolean;
+  featured: boolean;
+  images: [object];
+  type: string;
+  brand: string;
+  color: string;
+  description: string;
+  price: [number];
+  negotiable: boolean;
+  slug: string;
+  isAddedToFavs: boolean;
+  averageRating: number;
+  totalReviews: number;
+  percentageDiscount: number;
+  attributes: object;
 }
 
 export interface IproductAttributes {
-  id: string
-  attributes: Iproduct
+  id: string;
+  attributes: Iproduct;
 }
 
 export interface IfavoriteProduct {
-  attributes: { product: { data: IproductAttributes } }
+  attributes: { product: { data: IproductAttributes } };
+}
+
+export interface IproductReviews {
+  reviewList: [{
+    id: string
+    review: string
+    product: {}
+    user: {}
+    rating: number
+    likes: [{
+      displayName: string
+      image: string
+    }]
+    dislikes: [{displayName: string
+      image: string}]
+    isImages: boolean
+    createdAt: Date
+    updatedAt: Date
+  }]
+  pageInfo: {
+    endCursor: string
+    hasNextPage: boolean
+    totalCount: number
+    avgRating: number
+    totalRatings: number
+    totalReviews: number
+    ratingCounts: number
+    ratingPercentage: {
+      "1": number
+      "2": number
+      "3": number
+      "4": number
+      "5": number
+    }
+  }
 }

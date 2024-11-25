@@ -9,8 +9,11 @@ import RegisterForm from "./register-form"
 import SearchInput from "./search-input"
 import Sidebar from "./sidebar"
 import SingleProductForm from "./single-product-form"
-
-
+import ProductInfo from "./single-product-info";
+import ProductsGrid from "./products-grid/products-grid"
+import ProductDetails from "./product-details/products-details"
+import ProductSkeleton from "./product-skeleton";
+import ErrorBoundary from "./error-boundary";
 export {
   HorizontalTile,
   Layout,
@@ -19,8 +22,13 @@ export {
   NavbarLinks,
   PageHeader,
   RegisterForm,
+  ProductSkeleton,
   ProductTile,
+  ProductsGrid,
   SearchInput,
   Sidebar,
-  SingleProductForm
-}
+  SingleProductForm,
+  ProductInfo,
+  ProductDetails,
+  ErrorBoundary,
+};

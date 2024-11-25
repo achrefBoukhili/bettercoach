@@ -1,7 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { ErrorBoundary } from '@components/error-boundary'
-import { ProductSkeleton } from '@components/product-skeleton'
-import { ProductsGrid } from '@components/products-grid'
+import { ProductSkeleton, ErrorBoundary, ProductsGrid } from 'components'
 import { GET_LANDING_PRODUCTS } from 'api/queries'
 import { Layout } from 'components'
 import type { NextPage } from 'next'

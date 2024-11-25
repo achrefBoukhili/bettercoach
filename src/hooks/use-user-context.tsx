@@ -39,7 +39,6 @@ export const UserContext: Context<IuserContext> = createContext({
     	localStorage.removeItem('user')
 	},
 	userFavoriteProducts: defaultFavoriteProducts,
-  lastSelectedProductSLug: '',
 	toggleFavoriteProduct: (productID) => console.log(productID),
 });
 

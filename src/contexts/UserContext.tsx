@@ -16,7 +16,6 @@ export const UserContextProvider = ({ children }:Iprops) => {
     logout,
     userFavoriteProducts,
     toggleFavoriteProduct,
-    lastSelectedProductSLug,
   } = useUserContextData()
 
   return (
@@ -27,7 +26,6 @@ export const UserContextProvider = ({ children }:Iprops) => {
         logout,
         userFavoriteProducts,
         toggleFavoriteProduct,
-        lastSelectedProductSLug,
       }}
     >
       {children}
