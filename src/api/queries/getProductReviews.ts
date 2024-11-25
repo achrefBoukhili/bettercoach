@@ -14,6 +14,10 @@ export default gql`
         ratingPercentage
       }
       reviewList{
+        user{
+          displayName
+          image
+        }
         rating
         review
         media{

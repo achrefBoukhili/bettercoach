@@ -50,7 +50,7 @@ pnpm install
 ```
 3. Run the development server
 ```bash
-pnpm dev
+npm run dev
 ```
 4. Open browser The application will be available at http://localhost:3000
 
