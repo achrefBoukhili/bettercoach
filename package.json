@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "lint": "biome lint --error-on-warnings ./src",
+    "format": "pnpm biome format ./src"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
@@ -29,6 +29,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/node": "18.0.1",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.6",
