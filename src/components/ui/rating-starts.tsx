@@ -3,7 +3,7 @@ const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
   return (
     <div className="flex items-center flex-row gap-1">
       {Array.from({ length: 5 }).map((_, index) => {
-        let color = ' text-gray-200'
+        let color = 'text-gray-200'
         if (index < rating) {
             color = 'text-yellow-300'
         }

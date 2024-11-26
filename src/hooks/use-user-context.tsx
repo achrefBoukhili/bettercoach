@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import client from "api/apollo-client";
 import {
 	ADD_FAVORITE_PRODUCT,
-} from "api/mutations/mutations";
+} from "@/api/mutations/addProductToFavorites";
 import {
 	GET_USER_FAVORITE_PRODUCTS_IDS,
 	// GET_USER_FAVORITE_PRODUCT_ID,
@@ -21,6 +21,7 @@ import type {
 	Iuser,
 	IuserContext,
 } from "types/interfaces";
+import { access } from "fs";
 
 // Context utils
 const defaultFavoriteProducts: string[] = [];
@@ -28,6 +29,7 @@ const defaultUser: Iuser = {
 	name: "Guest",
 	surname: "",
 	jwtToken: "",
+	accessToken: "",
 	id: "",
 	isLogged: false,
 };
@@ -86,22 +88,20 @@ export const useUserContextData = () => {
 		initFavProductsState,
 	);
 
-	// const { data } = useQuery(GET_USER_FAVORITE_PRODUCTS_IDS, {
-	// 	variables: {
-	// 		userID: user.id,
-	// 	},
-	// 	context: {
-	// 		headers: {
-	// 			Authorization: `Bearer ${user.jwtToken}`,
-	// 		},
-	// 	},
-	// });
-	// if (data && initFavProductsState.favProductsIds.length === 0) {
-	// 	data.favoriteProducts.data.map((favoriteProduct: IfavoriteProduct) => {
-	// 		const { id } = favoriteProduct.attributes.product.data;
-	// 		initFavProductsState.favProductsIds.push(id);
-	// 	});
-	// }
+	const { data } = useQuery(GET_USER_FAVORITE_PRODUCTS_IDS, {
+		context: {
+			headers: {
+				Authorization: user.jwtToken,
+				accessToken: user.accessToken,
+			},
+		},
+	});
+	if (data && initFavProductsState.favProductsIds.length === 0) {
+		data.favoriteProducts.data.map((favoriteProduct: IfavoriteProduct) => {
+			const { id } = favoriteProduct.attributes.product.data;
+			initFavProductsState.favProductsIds.push(id);
+		});
+	}
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -145,6 +145,7 @@ export const useUserContextData = () => {
 				context: {
 					headers: {
 						Authorization: `Bearer ${user.jwtToken}`,
+						accessToken: user.accessToken,
 					},
 				},
 			}).catch(() => {

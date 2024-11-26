@@ -8,7 +8,6 @@ interface Iprops {
 
 const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
   const { pageInfo, reviewList } = reviews;
-  console.log(reviewList);
   return (
   <div>
     <div className="flex items-center mb-2">
@@ -18,6 +17,7 @@ const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
     </div>
     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{pageInfo.totalCount} global ratings</p>
+      <div className="border-b border-gray-200 dark:border-gray-700 pb-10 mb-15">
       {pageInfo.ratingPercentage && Object.keys(pageInfo.ratingPercentage).map((key, index) => (
         <div key={index} className="flex items-center mt-4">
           <div className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -36,7 +36,8 @@ const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
           </span>
         </div>
       ))}
-      <article className="mt-6">
+      </div>
+      {reviewList.length > 0 && <article className="mt-6 border-b border-gray-200 dark:border-gray-700 mb-5">
           <div className="flex items-center mb-4">
             <img className="w-10 h-10 me-4 rounded-full" src={reviewList[0].user.image} alt="" />
             <div className="font-medium dark:text-white">
@@ -45,15 +46,9 @@ const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
           </div>
           <RatingStars rating={reviewList[0].rating} />
           <p className="mb-2 text-gray-500 dark:text-gray-400">{reviewList[0].review}</p>
-          <aside>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">19 people found this helpful</p>
-              <div className="flex items-center mt-3">
-                  <a href="#" className="px-2 py-1.5 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Helpful</a>
-                  <a href="#" className="ps-4 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 border-gray-200 ms-4 border-s md:mb-0 dark:border-gray-600">Report abuse</a>
-              </div>
-          </aside>
-      </article>
+      </article>}
   </div>
   );
 }
+
 export default ReviewsDetails;

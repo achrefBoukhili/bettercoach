@@ -4,15 +4,12 @@ import { ProductInfo, SingleProductForm } from "components";
 import { useLandingProducts } from "@hooks/use-landing-products";
 import type { Iproduct, IproductReviews } from "types/interfaces";
 import useProduct from "@hooks/use-product";
-import useProductReviews from "@hooks/use-product-reviews";
 import Image from "next/image";
-import { useRouter } from "next/router";
 interface Iprops {
   slug: string;
 }
 const ProductDetails: React.FC<Iprops> = ({ slug }) => {
 	const { product, loading, error } = useProduct({ slug });
-
 	return (
 		<>
 			<section className="overflow-hidden text-gray-600 body-font">
@@ -36,12 +33,16 @@ const ProductDetails: React.FC<Iprops> = ({ slug }) => {
 								<ProductInfo
 									description={product?.description || ''}
 									productID={product?.id || ''}
+                  slug={product?.slug || ''}
 								/>
-								<SingleProductForm id={product?.id || ''} price={Number(product?.price) || 0} />
+								{/* <SingleProductForm id={product?.id || ''} price={Number(product?.price) || 0} /> */}
 							</div>
 						</div>
 					</div>
 				</section>
 		</>
 	);
-};export default ProductDetails;
+};
+
+export default ProductDetails;
+export const dynamic = 'force-dynamic'

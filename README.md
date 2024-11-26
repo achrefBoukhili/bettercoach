@@ -21,11 +21,12 @@ The application follows a component-based architecture with:
 1. Product Management
    - Product listing
    - Product details
-   - Category filtering
    - Search functionality
+   - Product reviews
 
 2. User Features
    - Authentication (Login/Register)
+   - Reviews and ratings
    - User account management
    - Favorites system
    - Shopping cart
@@ -34,7 +35,9 @@ The application follows a component-based architecture with:
 3. Form Handling
    - Search functionality
    - Product filtering
+   - User registration forms
    - User authentication forms
+   - Product review forms
    - Product purchase forms
 
 ## Local Development Setup

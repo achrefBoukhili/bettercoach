@@ -28,28 +28,18 @@ export const GET_USER_FAVORITE_PRODUCTS_IDS = gql`
   }
 `
 
-// export const GET_USER_FAVORITE_PRODUCTS = gql`
-//   query ($userID: ID!) {
-//     favoriteProducts(filters: { users_permissions_user: { id: { eq: $userID } } }) {
-//       data {
-//         attributes {
-//           product {
-//             data {
-//               attributes {
-//                 title
-//                 price
-//                 image
-//                 brand
-//                 slug
-//                 description
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
+export const GET_USER_FAVORITE_PRODUCTS = gql`
+  query {
+    getMyFavoriteProducts {
+      products{
+        images {
+          secure_url
+        }
+        title
+      }
+    }
+  }
+`
 
 // export const GET_USER_FAVORITE_PRODUCT_ID = gql`
 //   query ($userID: ID!, $productID: ID!) {

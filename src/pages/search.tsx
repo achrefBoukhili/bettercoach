@@ -4,7 +4,7 @@ import { getDefaultCategoriesLinks } from 'utils';
 import { Layout, ProductTile } from 'components'
 import useSearch from '@hooks/use-search';
 import { useRouter } from 'next/router';
-import { ProductSkeleton } from '@components/product-skeleton';
+import { ProductSkeleton } from 'components';
 import { Suspense } from 'react';
 
 interface Iprops {

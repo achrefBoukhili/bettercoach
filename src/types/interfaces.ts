@@ -22,6 +22,7 @@ export interface Iuser {
   name: string;
   surname: string;
   jwtToken: string;
+  accessToken: string;
   id: string;
   isLogged: boolean;
 }
@@ -51,12 +52,15 @@ export interface Iproduct {
   inStock: boolean;
   live: boolean;
   featured: boolean;
-  images: [object];
+  images: {
+    secure_url: string;
+    public_id: string;
+  }[];
   type: string;
   brand: string;
   color: string;
   description: string;
-  price: [number];
+  price: number[];
   negotiable: boolean;
   slug: string;
   isAddedToFavs: boolean;
@@ -80,7 +84,10 @@ export interface IproductReviews {
     id: string
     review: string
     product: {}
-    user: {}
+    user: {
+      displayName: string
+      image: string
+    }
     rating: number
     likes: [{
       displayName: string
@@ -108,4 +115,10 @@ export interface IproductReviews {
       "5": number
     }
   }
+}
+
+export interface IReviewFormValues {
+  product: string;
+  review: string;
+  rating: number;
 }
