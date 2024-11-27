@@ -5,11 +5,23 @@ import { useLandingProducts } from "@hooks/use-landing-products";
 import type { Iproduct, IproductReviews } from "types/interfaces";
 import useProduct from "@hooks/use-product";
 import Image from "next/image";
+import { useUserContext } from "@/contexts/UserContext";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 interface Iprops {
   slug: string;
 }
 const ProductDetails: React.FC<Iprops> = ({ slug }) => {
 	const { product, loading, error } = useProduct({ slug });
+	const { user } = useUserContext();
+	const router = useRouter();
+	useEffect(() => {
+    if (!loading && !error) {
+      if (!user?.isLogged) router.push("/login");
+    }
+	}, [user, loading, error]);
+
 	return (
 		<>
 			<section className="overflow-hidden text-gray-600 body-font">

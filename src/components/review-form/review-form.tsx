@@ -2,14 +2,14 @@ import React, {useState} from 'react'
 import { Formik, Field, Form } from 'formik'
 import useReviewForm from './review-form.hook'
 import { Rating } from 'react-simple-star-rating'
-
+import ReactStars from "react-rating-stars-component";
 interface Iprops {
-  product: string
+  productId: string
 }
-const ReviewForm: React.FC<Iprops> = ({product}) => {
+const ReviewForm: React.FC<Iprops> = ({productId}) => {
   const { formInitialValues, handleSubmit, reviewSchema } = useReviewForm()
   const [rating, setRating] = useState(0)
-
+  const [reviewEnabled, setReviewEnabled] = useState(false)
   const handleRating = (rate: number) => {
     setRating(rate)
   }
@@ -17,12 +17,18 @@ const ReviewForm: React.FC<Iprops> = ({product}) => {
     <div className='flex flex-col gap-4'>
       <Formik
         initialValues={formInitialValues}
-        onSubmit={(values) => handleSubmit({ ...values, product })}
+        onSubmit={(values) => handleSubmit({ ...values, productId, rating })}
         validationSchema={reviewSchema}
       >
         {({ errors, touched }) => (
           <Form className="login-register-form">
             <label htmlFor="comment" className="text-xs mb-15">By submitting your review you agree that it will be public and associated with your account</label>
+            <ReactStars
+              count={5}
+              onChange={handleRating}
+              size={24}
+              activeColor="#ffd700"
+            />
             <Field
               className="block p-2.5 w-full min-h-20 mb-5 text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="review"

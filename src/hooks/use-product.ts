@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_SLUG } from "api/queries";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { Iproduct } from "types/interfaces";
 
 interface Iprops {
@@ -12,17 +12,13 @@ interface Iprops {
 
 const useProduct = ({ slug }:Iprops) => {
   const router = useRouter()
-  const { user } = useUserContext();
   const [product, setProduct] = useState<Iproduct>();
+  const [userState, setUserState] = useState({});
   const { data, loading, error } = useQuery(GET_PRODUCT_BY_SLUG, {
     variables: {
       slug: slug,
     },
   });
-
-  useEffect(() => {
-    if (!user?.isLogged) router.push("/login");
-  }, [user]);
 
   useEffect(() => {
     if (!loading && !error) {

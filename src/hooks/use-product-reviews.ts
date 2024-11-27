@@ -26,8 +26,8 @@ const useProductReviews = ({ productID }: Iprops) => {
         setProductReviews(data.getProductReviews);
       }
     }
-  }, [data, loading, error]);
-
+  }, [data,  loading, error]);
+  console
   return {
     error,
     loading,

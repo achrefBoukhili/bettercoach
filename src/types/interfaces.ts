@@ -118,7 +118,7 @@ export interface IproductReviews {
 }
 
 export interface IReviewFormValues {
-  product: string;
+  productId: string;
   review: string;
   rating: number;
 }

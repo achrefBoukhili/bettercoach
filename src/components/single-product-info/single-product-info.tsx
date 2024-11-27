@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useProductReviews from "@hooks/use-product-reviews";
@@ -10,8 +10,7 @@ interface Iprops {
   productID: string;
   slug: string;
 }
-const ProductInfo: React.FC<Iprops> = ({ description, productID, slug }) => {
-  const { productReviews, loading: loadingProducts } = useProductReviews({productID});
+const ProductInfo: React.FC<Iprops> = ({ description, productID }) => {
 
   return (
     <>
@@ -24,8 +23,8 @@ const ProductInfo: React.FC<Iprops> = ({ description, productID, slug }) => {
           <Markdown>{description}</Markdown>
         </TabsContent>
         <TabsContent value="reviews">
-          {productReviews && <ReviewsDetails reviews={productReviews} />}
-          <ReviewForm product={slug}/>
+          <ReviewsDetails productID={productID}/>
+          <ReviewForm productId={productID} />
         </TabsContent>
       </Tabs>
     </>

@@ -11,7 +11,7 @@ const useReviewForm = () => {
 	const formInitialValues = {
 		review: "",
 		rating: 0,
-		product: "",
+		productId: "",
 	};
 
 	const reviewSchema = Yup.object().shape({
@@ -19,10 +19,10 @@ const useReviewForm = () => {
 		rating: Yup.string().required("rating is required"),
 	});
 
-	const handleSubmit = async ({product, rating, review}: IReviewFormValues) => {
+	const handleSubmit = async ({productId, rating, review}: IReviewFormValues) => {
 		const { data } = await addProductReview( {
 		variables: {
-			product,
+			productId,
 			rating,
 			review
 		},

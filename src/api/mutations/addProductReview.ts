@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
 export const ADD_PRODUCT_REVIEW = gql`
-  mutation ($product: String!, $rating: Float!, $review: String!) {
+  mutation ($productId: String!, $rating: Float!, $review: String!) {
     addProductReview(
       payload: {
-        product: $product
+        product: $productId
         rating: $rating
         review: $review
         isImages: true

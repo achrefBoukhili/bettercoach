@@ -1,24 +1,34 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import { IproductReviews } from "@/types/interfaces";
 import { RatingStars } from "./rating-starts";
 import { cn } from "@/lib/utils";
+import useProductReviews from "@hooks/use-product-reviews";
+import PersonReviews from "./person-reviews";
 interface Iprops {
-  reviews: IproductReviews;
+  productID: string;
 }
 
-const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
-  const { pageInfo, reviewList } = reviews;
+const ReviewsDetails: FC<Iprops> = ({ productID }) => {
+  const { productReviews, error, loading } = useProductReviews({productID});
+  const [reviews, setReviews] = React.useState<IproductReviews>();
+  useEffect(() => {
+    setReviews(productReviews);
+  }, [productReviews, error, loading]);
+
+  if(loading)return <div>loading</div>
+  if (error) return <div>error</div>
+
   return (
   <div>
     <div className="flex items-center mb-2">
-      <RatingStars rating={pageInfo.avgRating} />
-      <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{pageInfo.avgRating}</p>
+        <RatingStars rating={reviews?.pageInfo?.avgRating || 0} />
+      <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{reviews?.pageInfo?.avgRating}</p>
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
     </div>
-    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{pageInfo.totalCount} global ratings</p>
+    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{reviews?.pageInfo?.totalCount} global ratings</p>
       <div className="border-b border-gray-200 dark:border-gray-700 pb-10 mb-15">
-      {pageInfo.ratingPercentage && Object.keys(pageInfo.ratingPercentage).map((key, index) => (
+      {reviews?.pageInfo.ratingPercentage && Object.keys(reviews?.pageInfo?.ratingPercentage || {}).map((key, index) => (
         <div key={index} className="flex items-center mt-4">
           <div className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">
             {key} star
@@ -27,26 +37,20 @@ const ReviewsDetails: FC<Iprops> = ({ reviews }) => {
             <div
               className="h-5 bg-yellow-300 rounded"
               style={{
-                  width: `${pageInfo.ratingPercentage[key as keyof typeof pageInfo.ratingPercentage]}%`,
+                  width: `${reviews?.pageInfo?.ratingPercentage[key] || 0}%`,
               }}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            {pageInfo.ratingPercentage[key as keyof typeof pageInfo.ratingPercentage]}%
+            {Number(reviews?.pageInfo?.ratingPercentage[key]).toFixed()|| 0}%
           </span>
         </div>
       ))}
       </div>
-      {reviewList.length > 0 && <article className="mt-6 border-b border-gray-200 dark:border-gray-700 mb-5">
-          <div className="flex items-center mb-4">
-            <img className="w-10 h-10 me-4 rounded-full" src={reviewList[0].user.image} alt="" />
-            <div className="font-medium dark:text-white">
-                  <p>{reviewList[0].user.displayName} <time dateTime="2014-08-16 19:00" className="block text-sm text-gray-500 dark:text-gray-400">added on {new Date(reviewList[0].createdAt).toDateString()}</time></p>
-            </div>
-          </div>
-          <RatingStars rating={reviewList[0].rating} />
-          <p className="mb-2 text-gray-500 dark:text-gray-400">{reviewList[0].review}</p>
-      </article>}
+      {reviews?.reviewList.length > 0 &&
+        reviews?.reviewList.map((review, index) => (
+          <PersonReviews key={index} {...review} />
+        ))}
   </div>
   );
 }
